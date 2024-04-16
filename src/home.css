@@ -1,8 +1,23 @@
-h1 {
+body,html{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+h1{
   text-align:center;
 }
-.button{
-  position:absolute;
-  top: 90%;
-  left:50%;
+
+.task-group, .taskInputAdd{
+  width: 50%;
+  margin:auto;
+  text-align: center;
+}
+
+
+.task-list{
+  text-align: center;
+  padding-right: 5%;
+  margin:auto;
+  list-style-position: inside;
 }

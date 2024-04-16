@@ -1,11 +1,25 @@
 <!DOCTYPE html>
 <html lang="eng">
-  <head></head>
+  <head>
+    <link rel="stylesheet" href="home.css">
+  </head>
+
   <body>
     <h1>To-do List</h1>
-    <div class='elements'>
-      <button class="button" onclick="testPrint()">+</button>
-      <p id="test"> LOADING</p>
+
+    <div class='task-group' id="group">
+      <input id="taskInputAdd" class="taskInputAdd" placeholder="Enter Task">
+      <button id="taskButtonAdd" type="button">+</button>
     </div>
+
+
+    <div class="task-list">
+      <ul id="list">
+        <li>Task 1</li>
+      </ul>
+    </div>
+
+
+    <script src="home.js"></script>
   </body>
 </html>
