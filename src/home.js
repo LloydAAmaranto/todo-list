@@ -1,23 +1,20 @@
 document.getElementById('taskButtonAdd').addEventListener('click', newTask)
 
-// function newTask(){
-//   const inputTask = document.getElementById('taskInputAdd').value;
-
-//   var li = document.createElement('li');
-//   var t = document.createTextNode(inputTask);
-//   li.appendChild(t);
-
-//   document.getElementById('list').appendChild(li);
-//   document.getElementById('taskInputAdd').value = '';
-// }
 
 function newTask(){
-  const inputTask = document.getElementById('taskInputAdd').value;
+  var textbox = document.createElement("input");
+  textbox.type = "text";
+  textbox.classList.add("textbox");
 
-  var textarea = document.createElement('textarea');
-  var t = document.createTextNode(inputTask);
-  textarea.appendChild(t);
+  var taskContainer = document.getElementById("taskContainer");
+  var firstChild = taskContainer.firstChild;
 
-  document.getElementById('task-list').appendChild(textarea);
-  document.getElementById('taskInputAdd').value='';
+  var br = document.createElement("br");
+  taskContainer.insertBefore(br, firstChild);
+
+  taskContainer.insertBefore(textbox, firstChild);
+
+  var button = document.createElement("button");
+  taskContainer.insertAdjacentElement(button, button);
+
 }
