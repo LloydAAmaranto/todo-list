@@ -2,9 +2,10 @@ document.getElementById('taskButtonAdd').addEventListener('click', newTask)
 
 
 function newTask(){
-  var textbox = document.createElement("input");
+  var textbox = document.createElement("textarea");
   textbox.type = "text";
   textbox.classList.add("textbox");
+
 
   var taskContainer = document.getElementById("taskContainer");
   var firstChild = taskContainer.firstChild;
@@ -14,7 +15,7 @@ function newTask(){
 
   taskContainer.insertBefore(textbox, firstChild);
 
-  var button = document.createElement("button");
-  taskContainer.insertAdjacentElement(button, button);
+  // var button = document.createElement("button");
+  // taskContainer.insertBefore(button, button);
 
 }
