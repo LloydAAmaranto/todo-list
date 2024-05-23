@@ -53,3 +53,23 @@ textarea{
   position: relative;
   margin-right: 50px;
 }
+
+.textboxDiv {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.textbox {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.buttonDiv {
+  display: flex;
+  flex-direction: column;
+}
+
+.buttonDiv button {
+  margin-right: 5px;
+}
