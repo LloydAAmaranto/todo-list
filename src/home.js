@@ -39,4 +39,11 @@ function newTask(){
   taskContainer.insertBefore(br, firstChild);
   taskContainer.insertBefore(textboxDiv, firstChild);
 
+
+  //inserts the text from the search bar into the new textbox
+  var text = document.getElementById("taskInputAdd").value;
+  textbox.value = text;
+
+  //make the textbox un-editable
+  textbox.disabled = true;
 }
