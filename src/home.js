@@ -24,6 +24,13 @@ function newTask(){
   var buttonDelete = document.createElement("button");
   buttonDelete.textContent = "Delete";
 
+  //makes it so that if the delete button is clicked on a specific task, that will be deleted
+  buttonDelete.addEventListener("click", function(){
+    textboxDiv.remove();
+  });
+
+
+
   buttonDiv.appendChild(buttonDone);
   buttonDiv.appendChild(buttonEdit);
   buttonDiv.appendChild(buttonDelete);
