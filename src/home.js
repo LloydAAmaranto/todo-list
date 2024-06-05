@@ -46,4 +46,7 @@ function newTask(){
 
   //make the textbox un-editable
   textbox.disabled = true;
+
+  //clears the search bar after entering in a task
+  document.getElementById("taskInputAdd").value = "";
 }
