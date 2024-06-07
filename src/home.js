@@ -24,6 +24,16 @@ function newTask(){
   var buttonDelete = document.createElement("button");
   buttonDelete.textContent = "Delete";
 
+  //makes thetextbox uneditable
+  buttonDone.addEventListener("click", function(){
+    textbox.disabled = true;
+  });
+
+  //makes the textbox editable
+  buttonEdit.addEventListener("click", function(){
+    textbox.disabled = false;
+  });
+
   //makes it so that if the delete button is clicked on a specific task, that will be deleted
   buttonDelete.addEventListener("click", function(){
     textboxDiv.remove();

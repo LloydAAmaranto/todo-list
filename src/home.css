@@ -4,14 +4,29 @@ body,html{
   width: 100%;
 }
 
-h1{
-  text-align:center;
-}
-
 .task-group, .taskInputAdd{
   width: 50%;
   margin:auto;
   text-align: center;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  justify-content: center;
+  padding:20px;
+}
+
+.header-container h1 {
+  margin: 0;
+  flex-grow: 1;
+  text-align: left;
+
+}
+#loginPassword {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 
@@ -82,4 +97,16 @@ updatedTextarea{
 
 .buttonDiv button {
   margin-right: 5px;
+}
+
+
+.header-container .tabButtons button {
+  width: 200px;
+  height: 50px;
+  padding: 5px;
+  outline: none;
+  background-color: transparent;
+  border-style: none;
+  cursor: pointer;
+
 }
