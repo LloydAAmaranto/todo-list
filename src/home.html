@@ -1,40 +1,51 @@
 <!DOCTYPE html>
-<html lang="eng">
-  <head>
+<html lang="en">
+  <head>  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-do List</title>
     <link rel="stylesheet" href="home.css">
   </head>
-  <div class="header-container">
-    <body>
-      <h1>To-do List</h1>
-
-      <!-- <div class="loginCredentials" id="loginCredentialsDiv">
-        <input id="loginUsername" placeholder="Enter username">
-        <br>
-        <input id="loginPassword" placeholder="Enter password">
-        <br>
-        <button id="loginButton" type="button">Enter</button>
-
-      </div> -->
-      <div class="tabButtons" id="tabButtonsDiv">
-        <button id="currentButton">Current</button>
-        <button id="historyButton">History</button>
-        <button id="loginButton">LogIn</button>
+  <body>
+    <div class="header-container">
+        <h1>To-do List</h1>
+        <div class="tabButtons" id="tabButtonsDiv">
+          <button id="homeButton">Home</button>
+          <button id="historyButton">History</button>
+          <button id="loginButton" onclick="openLogin()">LogIn</button>
+        </div>
       </div>
-    </div>
 
-    <div class='task-group' id="group">
-      <input id="taskInputAdd" class="taskInputAdd" placeholder="Enter Task">
-      <button id="taskButtonAdd" type="button">+</button>
-    </div>
-
-
-    <div class="task-list" id="taskContainer">
-      <div class="textarea-container">
-        <br>
+      <div class="login-popup" id="login">
+        <form action="/submit" class="form-container">
+          <h1>Login</h1>
+      
+          <label for="email"><b>Email</b></label>
+          <input type="text" placeholder="Enter Email" name="email" required>
+      
+          <label for="password"><b>Password</b></label>
+          <input type="password" placeholder="Enter Password" name="password" required>
+      
+          <button type="submit" class="btn">Login</button>
+          <button type="button" class="btn cancel" onclick="closeLogin()">Close</button>
+        </form>
       </div>
-    </div>
+      
+
+      <div class='task-group' id="group">
+        <input id="taskInputAdd" class="taskInputAdd" placeholder="Enter Task">
+        <button id="taskButtonAdd" type="button">+</button>
+      </div>
 
 
-    <script src="home.js"></script>
+      <div class="task-list" id="taskContainer">
+        <div class="textarea-container">
+          <br>
+        </div>
+      </div>
+        
+      <script src="/src/home.js"></script>
+      <script src="/src/login.js"></script>
+      
   </body>
 </html>

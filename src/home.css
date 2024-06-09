@@ -110,3 +110,22 @@ updatedTextarea{
   cursor: pointer;
 
 }
+
+
+/* The login popup - hidden by default */
+.login-popup {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); 
+  border: 3px solid #f1f1f1; 
+  padding: 20px; 
+  background-color: white;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+  width: 400px;
+  height: 600px;
+  z-index: 1; /* Moves the popup infront of everything */
+}
+
+
