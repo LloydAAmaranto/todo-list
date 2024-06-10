@@ -20,14 +20,13 @@
         <form action="/submit" class="form-container">
           <h1>Login</h1>
       
-          <label for="email"><b>Email</b></label>
-          <input type="text" placeholder="Enter Email" name="email" required>
+          <input type="email" placeholder="Email or Phone" name="email" required>
+    
+          <input type="password" placeholder="Password" name="password" required>
       
-          <label for="password"><b>Password</b></label>
-          <input type="password" placeholder="Enter Password" name="password" required>
-      
-          <button type="submit" class="btn">Login</button>
-          <button type="button" class="btn cancel" onclick="closeLogin()">Close</button>
+          <button type="submit" class="btn login">Login</button>
+          <button type="submit" class="btn register">Register</button>
+          <button type="button" class="btn cancel" onclick="closeLogin()">X</button>
         </form>
       </div>
       
