@@ -121,7 +121,7 @@ updatedTextarea{
   background-color: white;
   box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
   width: 300px;
-  height: 500px;
+  height: 600px;
   z-index: 1; /* Moves the popup infront of everything */
 }
 
@@ -145,7 +145,7 @@ button.btn.login{
   width: 200px;
   height: 40px; 
   position:absolute;
-  top:50%;
+  top:70%;
   transform: translateX(-110%); 
   border-radius: 10px;
   border: 1px solid black;
@@ -156,7 +156,7 @@ button.btn.register{
   width: 200px;
   height: 40px; 
   position:absolute;
-  top:60%;
+  top:80%;
   transform: translateX(-110%); 
   border-radius: 10px;
   border: 1px solid black;

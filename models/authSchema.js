@@ -1,12 +1,5 @@
 const mongoose = require('mongoose');
-
-mongoose.connect('mongodb://localhost:27017/ToDoList')
-.then(()=>{
-  console.log('mongoose connection success');
-})
-.catch((e)=>{
-  console.log('mongoose connection failed');
-})
+const bcrypt = require('bcrypt');
 
 const authSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
@@ -14,5 +7,18 @@ const authSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now }
 });
 
-const authCollection = new mongoose.model('User', authSchema);
+// Hash the password before saving the user
+authSchema.pre('save', function(next) {
+  if (this.isModified('password')) {
+    this.password = bcrypt.hashSync(this.password, 10);
+  }
+  next();
+});
+
+// Method to compare passwords
+authSchema.methods.comparePassword = function(candidatePassword, cb) {
+  bcrypt.compare(candidatePassword, this.password, cb);
+};
+
+const authCollection = mongoose.model('Users', authSchema);
 module.exports = authCollection;
