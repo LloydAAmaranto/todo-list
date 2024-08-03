@@ -20,5 +20,5 @@ authSchema.methods.comparePassword = function(candidatePassword, cb) {
   bcrypt.compare(candidatePassword, this.password, cb);
 };
 
-const authCollection = mongoose.model('Users', authSchema);
+const authCollection = mongoose.model('username-password', authSchema);
 module.exports = authCollection;

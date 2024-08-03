@@ -1,19 +1,19 @@
-toggleLogin = 0;
+togglePopUp = 0;
 
 //ability to close the login popup by clicking on the "login" button
 function openLogin() {
-  if(!toggleLogin){
-    document.getElementById("login").style.display = "block";
-    toggleLogin = 1;
+  if(!togglePopUp){
+    document.getElementById("popUp").style.display = "block";
+    togglePopUp = 1;
   }
   else{
-    document.getElementById("login").style.display = "none";
-    toggleLogin = 0;
+    document.getElementById("popUp").style.display = "none";
+    togglePopUp = 0;
   }
 }
 
 //ability to close the login popup by clicking the "X" button
 function closeLogin() {
-  document.getElementById("login").style.display = "none";
-  toggleLogin = 0;
+  document.getElementById("popUp").style.display = "none";
+  togglePopUp = 0;
 }

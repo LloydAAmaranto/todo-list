@@ -5,7 +5,7 @@ const app = express();
 const port = 8080;
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/', {
+mongoose.connect('mongodb://localhost:27017/ToDoList', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
@@ -44,11 +44,17 @@ app.post('/register', async (req, res) => {
 app.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
-    const user = await authCollection.findOne({ email });
-    if (!user) return res.status(404).send('User not found');
+
+    console.log('Login attempt with:', { email, password });
+
+    const user = await authCollection.findOne({email});
+    console.log('User found:', user);
+    if (!user)
+      return res.status(404).send('User not found');
     
     user.comparePassword(password, (err, isMatch) => {
-      if (err) return res.status(500).send('Error comparing passwords');
+      if (err) 
+        return res.status(500).send('Error comparing passwords');
       if (!isMatch) return res.status(401).send('Invalid password');
       res.status(200).send('Login successful');
     });

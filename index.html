@@ -17,7 +17,7 @@
       </div>
 
       <!-- Used to check whether the login credentials match  -->
-      <div class="login-popup" id="login">
+      <div class="login-popup" id="popUp">
         <form action="/login" method="POST" class="form-container">
           <h1>Login</h1>
           <input type="email" placeholder="Email or Phone" name="email" required>
@@ -27,7 +27,7 @@
         </form>
       
         <!-- Used to store the registered username and password into MongoDB  -->
-        <form action="/register" method="POST" class="form-container" id="registerForm">
+        <form action="/register" method="POST" class="form-container">
           <h1>Register</h1>
           <input type="email" placeholder="Email or Phone" name="email" required>
           <input type="password" placeholder="Password" name="password" required>
@@ -50,6 +50,6 @@
       </div>
         
       <script src="/home.js"></script>
-      <script src="/popup.js"></script> 
+      <script src="/popUp.js"></script> 
   </body>
 </html>
