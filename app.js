@@ -69,6 +69,8 @@ app.post('/login', async (req, res) => {
       if (err) 
         return res.status(500).send('Error comparing passwords');
       if (!isMatch) return res.status(401).send('Invalid password');
+
+      req.session.email = email;
       res.redirect('/successfulLogin')
     });
   } catch (error) {
@@ -82,6 +84,15 @@ app.get('/successfulLogin', (req, res) =>{
   }
   res.render('successfulLogin', {email: req.session.email});
 })
+
+
+app.post('/logout', async (req, res) =>{
+  req.session.destroy(err => {
+    if(err)
+      return res.status(500).send("error logging out");
+  })
+  res.redirect('/');
+});
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);

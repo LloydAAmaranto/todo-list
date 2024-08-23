@@ -11,11 +11,27 @@
         <h1>To-do List</h1>
         <h1>Welcome, <%= email %>!</h1>
         <div class="tabButtons" id="tabButtonsDiv">
-          <button id="homeButton">Home</button>
+          <button id="homeButton"">Home</button>
           <button id="historyButton">History</button>
-          <button id="logoutButton" onclick="openLogin()">Logout</button>
+
+          <form action="/logout" method="POST">
+            <button id="logoutButton" type="submit">Logout</button>
+          </form>
+
         </div>
       </div>
+
+      <!-- Helps format the buttons better -->
+      <style>
+        .header-container{
+          padding:20px;
+        }
+
+       .tabButtons{
+        display:flex;
+       } 
+      </style>
+
       
       <!-- Add Button -->
       <div class='task-group' id="group">
@@ -29,8 +45,9 @@
           <br>
         </div>
       </div>
-        
-      <script src="/home.js"></script>
-      <script src="/popUp.js"></script> 
+      
+
+      <script src="../public/home.js"></script>
+      <script src="../public/popUp.js"></script> 
   </body>
 </html>
