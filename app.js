@@ -1,8 +1,9 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+const session = require('express-session');
 const app = express();
-const port = 8080;
+const port = 3030;
 const mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost:27017/ToDoList', {
@@ -12,8 +13,19 @@ mongoose.connect('mongodb://localhost:27017/ToDoList', {
 .then(() => console.log('MongoDB connected'))
 .catch(err => console.error('MongoDB connection error:', err));
 
-// Update the path to the authSchema module
+// The Path to the authSchema module 
 const authCollection = require('./models/authSchema');
+
+// sets up the ejs path
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+app.use(session({
+  secret: 'alsdkjflasdjflksajdfkasjdxnc,vmznxc,vmnxv',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }
+}));
 
 // Middleware to serve static files from 'public'
 app.use(express.static(path.join(__dirname, 'public')));
@@ -33,7 +45,8 @@ app.post('/register', async (req, res) => {
     const { email, password } = req.body;
     const newUser = new authCollection({ email, password });
     await newUser.save();
-    res.status(201).json({ message: 'User registered successfully' });
+
+    res.redirect('/successfulLogin');
   } catch (error) {
     console.error('Error registering user:', error);
     res.status(400).json({ error: 'Error registering user' });
@@ -56,12 +69,19 @@ app.post('/login', async (req, res) => {
       if (err) 
         return res.status(500).send('Error comparing passwords');
       if (!isMatch) return res.status(401).send('Invalid password');
-      res.status(200).send('Login successful');
+      res.redirect('/successfulLogin')
     });
   } catch (error) {
     res.status(400).send('Error logging in');
   }
 });
+
+app.get('/successfulLogin', (req, res) =>{
+  if (!req.session.email) {
+    return res.redirect('/');
+  }
+  res.render('successfulLogin', {email: req.session.email});
+})
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);

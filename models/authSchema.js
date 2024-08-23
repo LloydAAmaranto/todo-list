@@ -9,15 +9,13 @@ const authSchema = new mongoose.Schema({
 
 // Hash the password before saving the user
 authSchema.pre('save', function(next) {
-  if (this.isModified('password')) {
-    this.password = bcrypt.hashSync(this.password, 10);
-  }
+  this.password = bcrypt.hashSync(this.password, 10);
   next();
 });
 
 // Method to compare passwords
-authSchema.methods.comparePassword = function(candidatePassword, cb) {
-  bcrypt.compare(candidatePassword, this.password, cb);
+authSchema.methods.comparePassword = function(enteredPassword, cb) {
+  bcrypt.compare(enteredPassword, this.password, cb);
 };
 
 const authCollection = mongoose.model('username-password', authSchema);
