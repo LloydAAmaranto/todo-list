@@ -46,6 +46,7 @@ app.post('/register', async (req, res) => {
     const newUser = new authCollection({ email, password });
     await newUser.save();
 
+    req.session.email = email;
     res.redirect('/successfulLogin');
   } catch (error) {
     console.error('Error registering user:', error);
