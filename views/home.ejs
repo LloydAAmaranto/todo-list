@@ -9,7 +9,7 @@
   <body>
     <div class="header-container">
         <h1>To-do List</h1>
-        <h1>Welcome</h1>
+        <h1>Welcome <%= email %></h1>
         <div class="tabButtons" id="tabButtonsDiv">
           <form action="/home" method="GET">
             <button id="homeButton">Home</button>
@@ -17,7 +17,16 @@
           <form action="/history" method="GET">
             <button id="historyButton">History</button>
           </form>
-          <button id="loginButton" onclick="openLogin()">LogIn</button>
+          
+          <!-- The login/logout button will change depending on if the user has logged in -->
+          <% if (email) { %>
+            <form action="/logout" method="POST">
+              <button id="logoutButton" type="submit">Logout</button>
+            </form>
+          <% } else { %>
+            <button id="loginButton" onclick="openLogin()">Log In</button>
+          <% } %>
+
         </div>
       </div>
 

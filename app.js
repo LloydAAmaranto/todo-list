@@ -47,7 +47,7 @@ app.post('/register', async (req, res) => {
     await newUser.save();
 
     req.session.email = email;
-    res.redirect('/successfulLogin');
+    res.redirect('/home');
   } catch (error) {
     console.error('Error registering user:', error);
     res.status(400).json({ error: 'Error registering user' });
@@ -72,20 +72,12 @@ app.post('/login', async (req, res) => {
       if (!isMatch) return res.status(401).send('Invalid password');
 
       req.session.email = email;
-      res.redirect('/successfulLogin')
+      res.redirect('/home');
     });
   } catch (error) {
     res.status(400).send('Error logging in');
   }
 });
-
-app.get('/successfulLogin', (req, res) =>{
-  if (!req.session.email) {
-    return res.redirect('/');
-  }
-  res.render('successfulLogin', {email: req.session.email});
-})
-
 
 app.post('/logout', async (req, res) =>{
   req.session.destroy(err => {
@@ -97,6 +89,10 @@ app.post('/logout', async (req, res) =>{
 
 app.get('/history', (req, res) =>{
   res.render('history', {email: req.session.email});
+});
+
+app.get('/home', (req, res) =>{
+  res.render('home', {email: req.session.email});
 });
 
 
