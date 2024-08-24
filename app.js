@@ -95,6 +95,11 @@ app.post('/logout', async (req, res) =>{
   res.redirect('/');
 });
 
+app.get('/history', (req, res) =>{
+  res.render('history', {email: req.session.email});
+});
+
+
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });

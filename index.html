@@ -12,7 +12,9 @@
         <h1>Welcome</h1>
         <div class="tabButtons" id="tabButtonsDiv">
           <button id="homeButton">Home</button>
-          <button id="historyButton">History</button>
+          <form action="/history" method="GET">
+            <button id="historyButton">History</button>
+          </form>
           <button id="loginButton" onclick="openLogin()">LogIn</button>
         </div>
       </div>
