@@ -4,44 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-do List</title>
-    <link rel="stylesheet" href="public/home.css">
+    <link rel="stylesheet" href="/home.css"> 
   </head>
   <body>
     <div class="header-container">
         <h1>To-do List</h1>
+        <h1>Welcome</h1>
         <div class="tabButtons" id="tabButtonsDiv">
-          <button id="homeButton">Home</button>
-          <button id="historyButton">History</button>
+          <form action="/home" method="GET">
+            <button id="homeButton">Home</button>
+          </form>
+          <form action="/history" method="GET">
+            <button id="historyButton">History</button>
+          </form>
           <button id="loginButton" onclick="openLogin()">LogIn</button>
         </div>
       </div>
 
-      <div class="login-popup" id="login">
-        <form action="/submit" class="form-container">
+      <!-- Used to check whether the login credentials match  -->
+      <div class="login-popup" id="popUp">
+        <form action="/login" method="POST" class="form-container">
           <h1>Login</h1>
-      
           <input type="email" placeholder="Email or Phone" name="email" required>
-    
           <input type="password" placeholder="Password" name="password" required>
-          
-          <button type="button" class="btn cancel" onclick="closeLogin()">X</button>
           <button type="submit" class="btn login">Login</button>
+          <button type="button" class="btn cancel" onclick="closeLogin()">X</button>
+        </form>
+      
+        <!-- Used to store the registered username and password into MongoDB  -->
+        <form action="/register" method="POST" class="form-container">
+          <h1>Register</h1>
+          <input type="email" placeholder="Email or Phone" name="email" required>
+          <input type="password" placeholder="Password" name="password" required>
           <button type="submit" class="btn register">Register</button>
+          <button type="button" class="btn cancel" onclick="closeLogin()">X</button>
         </form>
       </div>
       
+      <!-- Add Button -->
       <div class='task-group' id="group">
         <input id="taskInputAdd" class="taskInputAdd" placeholder="Enter Task">
         <button id="taskButtonAdd" type="button">+</button>
       </div>
 
+      <!-- Displays the textbox after pressing the "+" button -->
       <div class="task-list" id="taskContainer">
         <div class="textarea-container">
           <br>
         </div>
       </div>
         
-      <script src="public/home.js"></script>
-      <script src="public/login.js"></script>
+      <script src="/home.js"></script>
+      <script src="/popUp.js"></script> 
   </body>
 </html>
