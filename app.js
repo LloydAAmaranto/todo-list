@@ -5,6 +5,7 @@ const session = require('express-session');
 const app = express();
 const port = 3030;
 const mongoose = require('mongoose');
+const userRoutes = require('./routes/userRoutes');
 
 mongoose.connect('mongodb://localhost:27017/ToDoList', {
   useNewUrlParser: true,
@@ -26,6 +27,9 @@ app.use(session({
   saveUninitialized: true,
   cookie: { secure: false }
 }));
+
+app.use(express.json());  
+app.use('/api', userRoutes);
 
 // Middleware to serve static files from 'public'
 app.use(express.static(path.join(__dirname, 'public')));
@@ -79,6 +83,7 @@ app.post('/login', async (req, res) => {
   }
 });
 
+// Logout a user
 app.post('/logout', async (req, res) =>{
   req.session.destroy(err => {
     if(err)
@@ -87,12 +92,37 @@ app.post('/logout', async (req, res) =>{
   res.redirect('/');
 });
 
+// Render history page
 app.get('/history', (req, res) =>{
   res.render('history', {email: req.session.email});
 });
 
+// Render home page
 app.get('/home', (req, res) =>{
   res.render('home', {email: req.session.email});
+});
+
+
+// Fetch all tasks for the logged-in user
+app.get('/api/tasks', async (req, res) => {
+  const email = req.session.email;  // Get the logged-in user's email from the session
+
+  if (!email) {
+      return res.status(401).json({ error: 'User not logged in' });
+  }
+
+  try {
+      const user = await authCollection.findOne({ email: email });
+      if (!user) {
+          return res.status(404).json({ error: 'User not found' });
+      }
+
+      const tasks = user.currentList;  // Assuming `currentList` holds the tasks
+      res.json(tasks);
+  } catch (error) {
+      console.error('Error fetching tasks:', error);
+      res.status(500).json({ error: 'Server error' });
+  }
 });
 
 
