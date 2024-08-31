@@ -1,4 +1,8 @@
 document.getElementById('taskButtonAdd').addEventListener('click', newTask);
+// Reloads the page after a new task is added so that it will be displayed
+document.getElementById('taskButtonAdd').addEventListener('click', function(){
+    window.location.reload();
+});
 
 // Create the new task and send it to the server
 function newTask() {
@@ -16,31 +20,15 @@ function newTask() {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            email: email,  // Include email in the request body
+            email: email, 
             newTask: text
         }),
     })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Task added successfully:', data);
-        var taskContainer = document.getElementById("taskContainer");
-        var newTaskDiv = document.createElement("div");
-        newTaskDiv.className = "task-item";
-        newTaskDiv.textContent = text;
-        taskContainer.appendChild(newTaskDiv);
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
-
-    // Clear the input field after submission
-    document.getElementById("taskInputAdd").value = "";
 }
 
 
 // Function to display all tasks
 function displayAllTasks() {
-  var email = document.getElementById("userEmail").value;  // Retrieve email from hidden input
 
   fetch('/api/tasks', {
       method: 'GET',
