@@ -127,21 +127,21 @@ app.get('/api/tasks', async (req, res) => {
 });
 
 app.delete('/api/delete-task/:email/:taskId', async (req, res) => {
-    const taskId = req.params.id;
+  const {email, taskId} = req.params;
 
-    try {
-        // Find and delete the task by its ID
-        const result = await Task.currentList.findByIdAndDelete(taskId);
+  try{
+    const result = await authCollection.updateOne(
+      {email: email},
+      { $pull: {currentList: {id: taskId}}}
+    )
 
-        if (!result) {
-            return res.status(404).json({ error: 'Task not found' });
-        }
-
-        res.status(200).json({ message: 'Task deleted successfully' });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Failed to delete task' });
-    }
+    if(result.nModified === 0)
+      return res.status(404).json({error: 'task not found or not deleted'});
+    res.status(200).json({ message: 'Task deleted successfully' });
+  } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Failed to delete task' });
+  }
 });
 
 
