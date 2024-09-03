@@ -6,6 +6,7 @@ const app = express();
 const port = 3030;
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/userRoutes');
+const Task = require('./models/authSchema');
 
 mongoose.connect('mongodb://localhost:27017/ToDoList', {
   useNewUrlParser: true,
@@ -123,6 +124,24 @@ app.get('/api/tasks', async (req, res) => {
       console.error('Error fetching tasks:', error);
       res.status(500).json({ error: 'Server error' });
   }
+});
+
+app.delete('/api/delete-task/:email/:taskId', async (req, res) => {
+    const taskId = req.params.id;
+
+    try {
+        // Find and delete the task by its ID
+        const result = await Task.currentList.findByIdAndDelete(taskId);
+
+        if (!result) {
+            return res.status(404).json({ error: 'Task not found' });
+        }
+
+        res.status(200).json({ message: 'Task deleted successfully' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Failed to delete task' });
+    }
 });
 
 

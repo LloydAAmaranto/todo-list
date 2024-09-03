@@ -5,8 +5,18 @@ const authSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
-  currentList:[{type: String}],
-  historyList:[{type:String}]
+  currentList: [
+    {
+      id: { type: String, required: true }, // Unique identifier 
+      task: { type: String, required: true } // The actual task 
+    }
+  ],
+  historyList: [
+    {
+      id: { type: String, required: true }, // Unique identifier
+      task: { type: String, required: true } // The actual task
+    }
+  ]
 });
 
 // Hash the password before saving the user
