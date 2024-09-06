@@ -72,10 +72,10 @@ app.post('/login', async (req, res) => {
       return res.status(404).send('User not found');
     
     user.comparePassword(password, (err, isMatch) => {
-      if (err) 
+      if (err)
         return res.status(500).send('Error comparing passwords');
-      if (!isMatch) return res.status(401).send('Invalid password');
-
+      if (!isMatch) 
+        return res.status(401).send('Invalid password');
       req.session.email = email;
       res.redirect('/home');
     });
@@ -88,7 +88,7 @@ app.post('/login', async (req, res) => {
 app.post('/logout', async (req, res) =>{
   req.session.destroy(err => {
     if(err)
-      return res.status(500).send("error logging out");
+    return res.status(500).send("error logging out");
   })
   res.redirect('/');
 });
@@ -109,20 +109,19 @@ app.get('/api/tasks', async (req, res) => {
   const email = req.session.email;  // Get the logged-in user's email from the session
 
   if (!email) {
-      return res.status(401).json({ error: 'User not logged in' });
+    return res.status(401).json({ error: 'User not logged in' });
   }
 
   try {
-      const user = await authCollection.findOne({ email: email });
-      if (!user) {
-          return res.status(404).json({ error: 'User not found' });
-      }
-
-      const tasks = user.currentList;  // Assuming `currentList` holds the tasks
-      res.json(tasks);
+    const user = await authCollection.findOne({ email: email });
+    if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+    }
+    const tasks = user.currentList;  // Assuming `currentList` holds the tasks
+    res.json(tasks);
   } catch (error) {
-      console.error('Error fetching tasks:', error);
-      res.status(500).json({ error: 'Server error' });
+    console.error('Error fetching tasks:', error);
+    res.status(500).json({ error: 'Server error' });
   }
 });
 
@@ -137,13 +136,23 @@ app.delete('/api/delete-task/:email/:taskId', async (req, res) => {
 
     if(result.nModified === 0)
       return res.status(404).json({error: 'task not found or not deleted'});
-    res.status(200).json({ message: 'Task deleted successfully' });
+      res.status(200).json({ message: 'Task deleted successfully' });
   } catch (err) {
-      console.error(err);
-      res.status(500).json({ error: 'Failed to delete task' });
+    console.error(err);
+    res.status(500).json({ error: 'Failed to delete task' });
   }
 });
 
+app.post('/api/add-to-history-list', async (req, res)  => {
+  const {email, newTask} = req.body;
+  try {
+    const user = await authCollection.findOne({email: email});
+    user.historyList.push(newTask);
+    await user.save();
+  }catch(error){
+    res.status(500).json({error:'error with the history list'});
+  }
+});
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
