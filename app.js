@@ -125,6 +125,26 @@ app.get('/api/tasks', async (req, res) => {
   }
 });
 
+app.get('/api/history-tasks', async (req, res) => {
+  const email = req.session.email;
+
+  if (!email) {
+    return res.status(401).json({ error: 'User not logged in' });
+  }
+
+  try {
+    const user = await authCollection.findOne({ email: email });
+    if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+    }
+    const historyTask = user.historyList || [];  // Assuming `historyList` holds the tasks
+    res.json(historyTask);
+  } catch (error) {
+    console.error('Error fetching tasks:', error);
+    res.status(500).json({ error: 'Server error' });
+  } 
+})
+
 app.delete('/api/delete-task/:email/:taskId', async (req, res) => {
   const {email, taskId} = req.params;
 

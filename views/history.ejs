@@ -54,20 +54,20 @@
         </form>
       </div>
       
-      <!-- Add Button -->
-      <!-- <div class='task-group' id="group">
-        <input id="taskInputAdd" class="taskInputAdd" placeholder="Enter Task">
-        <button id="taskButtonAdd" type="button">+</button>
-      </div> -->
-
-      <!-- Displays the textbox after pressing the "+" button -->
-      <div class="task-list" id="taskContainer">
+      
+      <div class="task-list" id="historyContainer">
         <div class="textarea-container">
-          <br>
+        <br>
         </div>
       </div>
-        
-      <!-- <script src="/js/home.js"></script> -->
+
+      <script src="/js/home.js"></script>
       <script src="/js/popup.js"></script> 
+      <script>
+        document.addEventListener("DOMContentLoaded", function() {
+          displayAllHistoryTasks(); // Call the function to display tasks
+        });
+      </script>
+      
   </body>
 </html>
