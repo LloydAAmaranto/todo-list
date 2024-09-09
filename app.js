@@ -145,6 +145,25 @@ app.get('/api/history-tasks', async (req, res) => {
   } 
 })
 
+app.delete('/api/delete-history-task/:email/:taskId', async (req, res) => {
+  const {email, taskId} = req.params;
+
+  try{
+    const result = await authCollection.updateOne(
+      {email: email},
+      { $pull: {historyList: {id: taskId}}}
+    )
+
+    if(result.nModified === 0)
+      return res.status(404).json({error: 'task not found or not deleted'});
+      res.status(200).json({ message: 'Task deleted successfully' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to delete task' });
+  }
+});
+
+
 app.delete('/api/delete-task/:email/:taskId', async (req, res) => {
   const {email, taskId} = req.params;
 
@@ -171,6 +190,18 @@ app.post('/api/add-to-history-list', async (req, res)  => {
     await user.save();
   }catch(error){
     res.status(500).json({error:'error with the history list'});
+  }
+});
+
+app.post('/api/restore-task', async (req, res) => {
+  const {email, newTask} = req.body;
+  
+  try{
+    const user = await authCollection.findOne({email: email});
+    user.currentList.push(newTask);
+    await user.save();
+  }catch(error){
+    res.status(500).json({error:'error restoring task from the history list'});
   }
 });
 

@@ -125,34 +125,26 @@ function displayAllHistoryTasks() {
       buttonDiv.classList.add("buttonDiv");
   
       //creates the the buttons
-      var buttonDone = document.createElement("button");
-      buttonDone.textContent = "Done";  
-      var buttonEdit = document.createElement("button");
-      buttonEdit.textContent = "Edit";
+      var buttonRestore = document.createElement("button");
+      buttonRestore.textContent = "Restore";
+
       var buttonDelete = document.createElement("button");
       buttonDelete.textContent = "Delete";
-  
-      //makes thetextbox uneditable and updates the textbox
-      buttonDone.addEventListener("click", function(){
-          textbox.disabled = true;
-          // Updates the task 
-          // updateTask(task.id, textbox.value);
+
+      buttonRestore.addEventListener("click", function(){
+        restoreTask(task.task, task.id);
+        deleteHistoryTask(task.id);
+        textboxDiv.remove();
       });
-  
-      //makes the textbox editable
-      buttonEdit.addEventListener("click", function(){
-          textbox.disabled = false;
-      });
-  
+
       //makes it so that if the delete button is clicked on a specific task, that will be deleted
       buttonDelete.addEventListener("click", function(){
-          addToHistory(task.task, task.id);
-          deleteTask(task.id);
-          textboxDiv.remove();
+        deleteHistoryTask(task.id);
+        textboxDiv.remove();
+
       });
-  
-      buttonDiv.appendChild(buttonDone);
-      buttonDiv.appendChild(buttonEdit);
+ 
+      buttonDiv.appendChild(buttonRestore);
       buttonDiv.appendChild(buttonDelete);
   
       textboxDiv.appendChild(textbox);
@@ -170,7 +162,34 @@ function displayAllHistoryTasks() {
   }
 
 
+function restoreTask(text, taskId){
+    var email = document.getElementById("userEmail").value;
 
+    fetch('/api/restore-task', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            email: email,
+            newTask: {
+                id: taskId,
+                task: text
+            }
+        })
+    });
+}
+
+
+function deleteHistoryTask(taskId){
+    var email = document.getElementById("userEmail").value; // Retrieve email from hidden input
+    fetch(`/api/delete-history-task/${email}/${taskId}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+}
 
 // Create the new task and send it to the server
 function newTask() {

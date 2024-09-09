@@ -61,6 +61,9 @@
         </div>
       </div>
 
+      <!-- Hidden input to hold the user's email -->
+      <input type="hidden" id="userEmail" value="<%= email %>">
+
       <script src="/js/home.js"></script>
       <script src="/js/popup.js"></script> 
       <script>
@@ -68,6 +71,6 @@
           displayAllHistoryTasks(); // Call the function to display tasks
         });
       </script>
-      
+
   </body>
 </html>
