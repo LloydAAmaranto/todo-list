@@ -5,6 +5,15 @@ document.getElementById('taskButtonAdd').addEventListener('click', function(){
     searchBar.value = '';
 });
 
+// Enables the "Enter" key to work when adding 
+document.getElementById("taskInputAdd").addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        event.preventDefault(); // Makes it so that it ignores when there's nothing entered (no warning popups)
+        document.getElementById("taskButtonAdd").click();  // Trigger the "+" button click
+    }
+  });
+  
+
 // Function to display all tasks
 function displayAllTasks() {
 

@@ -22,7 +22,8 @@
       </div>
 
       <!-- Used to check whether the login credentials match  -->
-      <div class="login-popup" id="popUp">
+
+      <div class="login-popup" id="popUp" style="display: none;">
         <form action="/login" method="POST" class="form-container">
           <h1>Login</h1>
           <input type="email" placeholder="Email or Phone" name="email" required>
@@ -44,7 +45,7 @@
       <!-- Add Button -->
       <div class='task-group' id="group">
         <input id="taskInputAdd" class="taskInputAdd" placeholder="Enter Task">
-        <button id="taskButtonAdd" type="button">+</button>
+        <button id="taskButtonAdd" onclick="openLogin()" type="button">+</button>
       </div>
 
       <!-- Displays the textbox after pressing the "+" button -->
