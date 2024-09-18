@@ -103,7 +103,6 @@ app.get('/home', (req, res) =>{
   res.render('home', {email: req.session.email});
 });
 
-
 // Fetch all tasks for the logged-in user
 app.get('/api/tasks', async (req, res) => {
   const email = req.session.email;  // Get the logged-in user's email from the session
@@ -163,7 +162,6 @@ app.delete('/api/delete-history-task/:email/:taskId', async (req, res) => {
   }
 });
 
-
 app.delete('/api/delete-task/:email/:taskId', async (req, res) => {
   const {email, taskId} = req.params;
 
@@ -202,6 +200,20 @@ app.post('/api/restore-task', async (req, res) => {
     await user.save();
   }catch(error){
     res.status(500).json({error:'error restoring task from the history list'});
+  }
+});
+
+app.put('/api/edit-task', async (req, res) => {
+  const { email, taskId, newTask } = req.body;
+  try {
+    // Find the user and update the specific task in the currentList array
+    const result = await authCollection.updateOne(
+      { email: email, "currentList.id": taskId },
+      { $set: { "currentList.$.task": newTask } }  // Use $ to update the specific task where the id matches
+    );
+  } catch (error) {
+    console.error('Error updating task:', error);
+    res.status(500).json({ success: false, message: 'Internal server error' });
   }
 });
 

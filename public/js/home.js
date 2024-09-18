@@ -53,8 +53,8 @@ function displayAllTasks() {
     //makes thetextbox uneditable and updates the textbox
     buttonDone.addEventListener("click", function(){
         textbox.disabled = true;
-        // Updates the task 
-        // updateTask(task.id, textbox.value);
+        // Updates the task
+        editTask(task.id, textbox.value);
     });
 
     //makes the textbox editable
@@ -86,7 +86,6 @@ function displayAllTasks() {
       console.error('Error:', error);
   });
 }
-
 
 function displayAllHistoryTasks() {
 
@@ -161,7 +160,6 @@ function displayAllHistoryTasks() {
     });
   }
 
-
 function restoreTask(text, taskId){
     var email = document.getElementById("userEmail").value;
 
@@ -179,7 +177,6 @@ function restoreTask(text, taskId){
         })
     });
 }
-
 
 function deleteHistoryTask(taskId){
     var email = document.getElementById("userEmail").value; // Retrieve email from hidden input
@@ -250,6 +247,22 @@ function deleteTask(taskId) {
     })
 }
 
+function editTask(taskId, newValue) {
+    var email = document.getElementById("userEmail").value;
+  
+    fetch('/api/edit-task', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: email,      // Send the user's email
+        taskId: taskId,    // Send the task ID to identify which task to edit
+        newTask: newValue  // Send the updated task value
+      })
+    })
+  }
+  
 // Call displayAllTasks when the page loads
 document.addEventListener('DOMContentLoaded', function() {
   displayAllTasks();
