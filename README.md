@@ -94,7 +94,7 @@ This is a **to-do list web application** that allows users to manage their tasks
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the terms of the MIT open source license. Please refer to [MIT](./LICENSE.md) for the full terms.
 
 ## Contact
 
